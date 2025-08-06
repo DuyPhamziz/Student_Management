@@ -1,16 +1,20 @@
 package views;
 
 import controllers.ClassController;
+import controllers.ScoreController;
 import controllers.StudentController;
+import java.awt.*;
+import java.time.Year;
+import java.util.List;
+import javax.swing.*;
 import models.ClassRoom;
+import models.Score;
 import models.Student;
 import utils.CSVHelper;
 import utils.FilePath;
 
-import javax.swing.*;
-import java.awt.*;
-import java.time.Year;
-import java.util.List;
+
+
 
 public class MainFrame extends JFrame {
     private static final String STUDENT_CSV = FilePath.STUDENT_CSV;
@@ -28,13 +32,11 @@ public class MainFrame extends JFrame {
     private final JTable table = new JTable(tableModel);
 
     public MainFrame() {
-        // Tạo thư mục data nếu chưa có
+
         new java.io.File("data").mkdirs();
-        // Load dữ liệu lớp và học sinh từ CSV
-        // classController.getAllClasses().clear();
-        // classController.getAllClasses().addAll(CSVHelper.readClassesFromCSV(CLASS_CSV));
+
         studentController.getAllStudents().addAll(CSVHelper.readStudentsFromCSV(STUDENT_CSV));
-        // Đồng bộ JComboBox lớp
+
         rebuildClassCombo();
 
         setTitle("Quản lý học sinh");
@@ -43,13 +45,14 @@ public class MainFrame extends JFrame {
         setLocationRelativeTo(null);
 
         JTabbedPane tabs = new JTabbedPane();
+        ScoreController scoreController = new ScoreController();
 
-        // Tab học sinh
+        tabs.addTab("Nhập điểm", createScorePanel(scoreController));
         tabs.addTab("Học sinh", createStudentPanel());
 
-        // Tab lớp học
+
         ClassPanel classPanel = new ClassPanel(classController, classModel);
-        // Khi thêm lớp, lưu CSV và cập nhật combo
+
         classPanel.setOnClassAdded(() -> {
             CSVHelper.writeClassesToCSV(classController.getAllClasses(), CLASS_CSV);
             rebuildClassCombo();
@@ -109,7 +112,7 @@ public class MainFrame extends JFrame {
         Student s = new Student(name, id, selectedClass.getName(), schoolYear, selectedClass.getTeacher());
         studentController.addStudent(s);
 
-        // Lưu học sinh ra CSV
+
         CSVHelper.writeStudentsToCSV(studentController.getAllStudents(), STUDENT_CSV);
 
         tableModel.setStudents(studentController.getAllStudents());
@@ -130,5 +133,74 @@ public class MainFrame extends JFrame {
         String yearCode = String.format("%03d", year % 1000);
         String countCode = String.format("%03d", count);
         return "HS" + yearCode + countCode;
+    }
+
+    private JPanel createScorePanel(ScoreController scoreController) {
+        JPanel panel = new JPanel(new BorderLayout());
+
+        JPanel form = new JPanel(new GridLayout(5, 2, 5, 5));
+        JComboBox<Student> cbStudent = new JComboBox<>(new DefaultComboBoxModel<>(studentController.getAllStudents().toArray(new Student[0])));
+        JTextField txtSubject = new JTextField();
+        JTextField txtScore = new JTextField();
+        JLabel lblResult = new JLabel(" ");
+
+        form.setBorder(BorderFactory.createTitledBorder("Nhập điểm học sinh"));
+        form.add(new JLabel("Chọn học sinh:"));
+        form.add(cbStudent);
+        form.add(new JLabel("Môn học:"));
+        form.add(txtSubject);
+        form.add(new JLabel("Điểm:"));
+        form.add(txtScore);
+
+        JButton btnAdd = new JButton("Lưu điểm");
+        form.add(btnAdd);
+
+        JButton btnReport = new JButton("Xem học bạ");
+        form.add(btnReport);
+
+        panel.add(form, BorderLayout.NORTH);
+        panel.add(lblResult, BorderLayout.SOUTH);
+
+        btnAdd.addActionListener(e -> {
+            Student s = (Student) cbStudent.getSelectedItem();
+            String subject = txtSubject.getText().trim();
+            double score;
+
+            try {
+                score = Double.parseDouble(txtScore.getText().trim());
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(panel, "Điểm không hợp lệ");
+                return;
+            }
+
+            if (s == null || subject.isEmpty()) {
+                JOptionPane.showMessageDialog(panel, "Vui lòng chọn học sinh và nhập môn học");
+                return;
+            }
+
+            scoreController.addScore(new Score(s.getId(), subject, score));
+            double avg = scoreController.getAverage(s.getId());
+            String level = scoreController.classify(s.getId());
+            lblResult.setText(String.format("TB: %.2f - Xếp loại: %s", avg, level));
+
+            txtSubject.setText("");
+            txtScore.setText("");
+        });
+
+        btnReport.addActionListener(e -> {
+            Student s = (Student) cbStudent.getSelectedItem();
+            if (s == null) {
+                JOptionPane.showMessageDialog(panel, "Chưa chọn học sinh");
+                return;
+            }
+            List<Score> scores = scoreController.getScoresByStudent(s.getId());
+            double avg = scoreController.getAverage(s.getId());
+            String level = scoreController.classify(s.getId());
+
+            ReportCardFrame frame = new ReportCardFrame(s, scores, avg, level);
+            frame.setVisible(true);
+        });
+
+        return panel;
     }
 }

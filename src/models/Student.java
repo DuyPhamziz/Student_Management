@@ -1,8 +1,7 @@
 package models;
 
-import models.Person;
-
 public class Student extends Person {
+
     private String classId;
     private String schoolYear;
     private String homeroomTeacher;
@@ -36,6 +35,11 @@ public class Student extends Person {
 
     public void setHomeroomTeacher(String homeroomTeacher) {
         this.homeroomTeacher = homeroomTeacher;
+    }
+
+    @Override
+    public String toString() {
+        return name + " (" + id + ")";
     }
 
 }

@@ -3,10 +3,14 @@ package utils;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-import models.Student;
 import models.ClassRoom;
+import models.Score;
+import models.Student;
+
+
 
 public class CSVHelper {
+
     public static List<Student> readStudentsFromCSV(String path) {
         List<Student> students = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(
@@ -65,4 +69,35 @@ public class CSVHelper {
             e.printStackTrace();
         }
     }
+
+    public static List<Score> readScoresFromCSV(String path) {
+        List<Score> scores = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(
+                new FileInputStream(path), StandardCharsets.UTF_8))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 3) {
+                    scores.add(new Score(parts[0], parts[1], Double.parseDouble(parts[2])));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return scores;
+    }
+
+    public static void writeScoresToCSV(List<Score> scores, String path) {
+        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream(path), StandardCharsets.UTF_8))) {
+            for (Score s : scores) {
+                bw.write(String.join(",", s.getStudentId(), s.getSubject(), String.valueOf(s.getScore())));
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
+// readScoresFromCSV, writeScoresToCSV
