@@ -31,6 +31,9 @@ public String toString() {
 }
 
 
+public String getDisplayNameOnly() {
+    return name;
+}
     
 
 

@@ -36,6 +36,18 @@ public class MainFrame extends JFrame {
     private final JButton btnAdd = new JButton("Thêm");
     private final JButton btnEdit = new JButton("Sửa");
     private final JButton btnDelete = new JButton("Xóa");
+    private final JTextField txtSearchId = new JTextField(15);
+    private final JButton btnSearchId = new JButton("Tìm theo MSSV");
+    private final JTextField txtSearchName = new JTextField(15);
+    private final JButton btnSearchName = new JButton("Tìm theo Họ tên");
+    private final JButton btnReset = new JButton("Hiển thị tất cả");
+    private final JComboBox<String> cbFilterGender = new JComboBox<>(new String[] { "Tất cả", "Nam", "Nữ" });
+    private final JComboBox<ClassRoom> cbFilterClass = new JComboBox<>();
+    private final JComboBox<Teacher> cbFilterTeacher = new JComboBox<>();
+    private final JButton btnFilterGender = new JButton("Lọc theo giới tính");
+    private final JButton btnFilterClass = new JButton("Lọc theo lớp");
+    private final JButton btnFilterTeacher = new JButton("Lọc theo GVCN");
+
     private static final String[] SUBJECTS = {
             "Ngữ văn", "Toán", "Ngoại ngữ 1", "Giáo dục thể chất",
             "Giáo dục QP-AN", "Lịch sử", "Địa lý", "Hóa học",
@@ -93,6 +105,8 @@ public class MainFrame extends JFrame {
         tabs.addTab("Học sinh", createStudentPanel());
         tabs.addTab("Lớp học", new ClassPanel(classController, teacherController));
         tabs.addTab("Giáo viên", new TeacherPanel(teacherController));
+        tabs.addTab("Xuất theo lớp", new ExportByClassPanel(classController, studentController));
+
 
         add(tabs);
         setVisible(true);
@@ -129,14 +143,140 @@ public class MainFrame extends JFrame {
         btnAdd.addActionListener(e -> addStudent());
         btnEdit.addActionListener(e -> editStudent());
         btnDelete.addActionListener(e -> deleteStudent());
+        btnSearchId.addActionListener(e -> {
+            String keyword = txtSearchId.getText().trim();
+            if (keyword.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Nhập mã số học sinh để tìm kiếm.");
+                return;
+            }
+
+            List<Student> results = studentController.searchStudentsById(keyword);
+            if (results.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy học sinh có mã chứa: " + keyword);
+            } else {
+                table.setModel(new StudentTable(results));
+            }
+        });
+
+        btnSearchName.addActionListener(e -> {
+            String name = txtSearchName.getText().trim();
+            if (name.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Nhập tên để tìm kiếm.");
+                return;
+            }
+
+            List<Student> results = studentController.searchStudentsByName(name);
+            if (results.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy học sinh có tên chứa: " + name);
+            } else {
+                table.setModel(new StudentTable(results));
+            }
+        });
+
+        btnReset.addActionListener(e -> {
+            table.setModel(new StudentTable(studentController.getAllStudents()));
+        });
 
         table.setFont(new Font("Arial", Font.PLAIN, 14));
         table.setRowHeight(22);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.getSelectionModel().addListSelectionListener(e -> updateFormFromTable());
+        // Tạo panel chính chứa các dòng tìm kiếm
+        JPanel searchPanel = new JPanel();
+        searchPanel.setLayout(new BoxLayout(searchPanel, BoxLayout.Y_AXIS));
+        searchPanel.setBorder(BorderFactory.createTitledBorder("Tìm kiếm học sinh"));
+
+        // Dòng tìm theo MSSV
+        JPanel line1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        line1.add(new JLabel("Nhập mã số học sinh:"));
+        line1.add(txtSearchId);
+        line1.add(btnSearchId);
+
+        // Dòng tìm theo tên
+        JPanel line2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        line2.add(new JLabel("Nhập họ tên học sinh:"));
+        line2.add(txtSearchName);
+        line2.add(btnSearchName);
+
+        // Nút hiển thị tất cả
+        JPanel line3 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        line3.add(btnReset);
+
+        // Thêm các dòng vào panel chính
+        searchPanel.add(line1);
+        searchPanel.add(line2);
+        searchPanel.add(line3);
+
+        // Thêm toàn bộ khung tìm kiếm vào bên trên bảng
+        panel.add(searchPanel, BorderLayout.NORTH);
+
+        JPanel filterPanel = new JPanel();
+        filterPanel.setBorder(BorderFactory.createTitledBorder("Phân loại học sinh"));
+        filterPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+        filterPanel.add(new JLabel("Giới tính:"));
+        filterPanel.add(cbFilterGender);
+        filterPanel.add(btnFilterGender);
+
+        filterPanel.add(new JLabel("Lớp:"));
+        cbFilterClass.removeAllItems();
+        
+        cbFilterClass.addItem(null); // Cho phép chọn "Tất cả"
+        for (ClassRoom c : classController.getAllClasses())
+            cbFilterClass.addItem(new ClassRoom(c.getName(), c.getTeacherId()) {
+                @Override
+                public String toString() {
+                    return getDisplayNameOnly(); // chỉ hiển thị tên lớp
+                }
+            });
+        filterPanel.add(cbFilterClass);
+        filterPanel.add(btnFilterClass);
+
+        filterPanel.add(new JLabel("GVCN:"));
+        cbFilterTeacher.removeAllItems();
+        cbFilterTeacher.addItem(null);
+        for (Teacher t : teacherController.getAllTeachers())
+            cbFilterTeacher.addItem(t);
+        filterPanel.add(cbFilterTeacher);
+        filterPanel.add(btnFilterTeacher);
+
+        // Thêm vào panel:
+        panel.add(filterPanel, BorderLayout.SOUTH);
 
         panel.add(form, BorderLayout.EAST);
         panel.add(new JScrollPane(table), BorderLayout.CENTER);
+        btnFilterGender.addActionListener(e -> {
+            String gender = (String) cbFilterGender.getSelectedItem();
+            if (gender == null || gender.equals("Tất cả")) {
+                table.setModel(new StudentTable(studentController.getAllStudents()));
+            } else {
+                table.setModel(new StudentTable(studentController.filterByGender(gender)));
+            }
+        });
+
+        btnFilterClass.addActionListener(e -> {
+            ClassRoom selectedClass = (ClassRoom) cbFilterClass.getSelectedItem();
+            if (selectedClass == null) {
+                table.setModel(new StudentTable(studentController.getAllStudents()));
+            } else {
+                List<Student> filtered = studentController.getAllStudents().stream()
+                        .filter(s -> s.getClassId().equals(selectedClass.getName()))
+                        .toList();
+                table.setModel(new StudentTable(filtered));
+            }
+        });
+
+        btnFilterTeacher.addActionListener(e -> {
+            Teacher selectedTeacher = (Teacher) cbFilterTeacher.getSelectedItem();
+            if (selectedTeacher == null) {
+                table.setModel(new StudentTable(studentController.getAllStudents()));
+            } else {
+                List<Student> filtered = studentController.getAllStudents().stream()
+                        .filter(s -> s.getHomeroomTeacher().equalsIgnoreCase(selectedTeacher.getName()))
+                        .toList();
+                table.setModel(new StudentTable(filtered));
+            }
+        });
 
         return panel;
     }
@@ -361,4 +501,5 @@ public class MainFrame extends JFrame {
 
         return panel;
     }
+
 }

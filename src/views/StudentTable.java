@@ -50,4 +50,5 @@ public class StudentTable extends AbstractTableModel {
             default -> null;
         };
     }
+    
 }

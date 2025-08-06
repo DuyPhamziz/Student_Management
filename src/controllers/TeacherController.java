@@ -32,4 +32,25 @@ public class TeacherController {
     public List<Teacher> getAllTeachers() {
         return teachers;
     }
+
+    public List<Teacher> searchById(String keyword) {
+        List<Teacher> result = new ArrayList<>();
+        for (Teacher t : teachers) {
+            if (t.getId().toLowerCase().contains(keyword.toLowerCase().trim())) {
+                result.add(t);
+            }
+        }
+        return result;
+    }
+
+    public List<Teacher> searchByName(String keyword) {
+        List<Teacher> result = new ArrayList<>();
+        for (Teacher t : teachers) {
+            if (t.getName().toLowerCase().contains(keyword.toLowerCase().trim())) {
+                result.add(t);
+            }
+        }
+        return result;
+    }
+
 }

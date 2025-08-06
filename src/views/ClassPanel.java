@@ -17,6 +17,11 @@ public class ClassPanel extends JPanel {
     private final JComboBox<Teacher> cbTeacher = new JComboBox<>();
     private final DefaultListModel<ClassRoom> classModel = new DefaultListModel<>();
     private final JList<ClassRoom> classList = new JList<>(classModel);
+    private final JTextField txtSearchName = new JTextField(15);
+    private final JTextField txtSearchTeacherId = new JTextField(15);
+    private final JButton btnSearchName = new JButton("Tìm theo tên lớp");
+    private final JButton btnSearchTeacherId = new JButton("Tìm theo Mã GV");
+    private final JButton btnReset = new JButton("Hiển thị tất cả");
 
     private final ClassController classController;
 
@@ -46,6 +51,30 @@ public class ClassPanel extends JPanel {
             classController.addClass(c);
             classModel.addElement(c);
         }
+        // ==== Giao diện tìm kiếm lớp học ====
+        JPanel searchPanel = new JPanel();
+        searchPanel.setLayout(new BoxLayout(searchPanel, BoxLayout.Y_AXIS));
+        searchPanel.setBorder(BorderFactory.createTitledBorder("Tìm kiếm lớp học"));
+
+        JPanel line1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        line1.add(new JLabel("Tên lớp:"));
+        line1.add(txtSearchName);
+        line1.add(btnSearchName);
+
+        JPanel line2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        line2.add(new JLabel("Mã GV:"));
+        line2.add(txtSearchTeacherId);
+        line2.add(btnSearchTeacherId);
+
+        JPanel line3 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        line3.add(btnReset);
+
+        searchPanel.add(line1);
+        searchPanel.add(line2);
+        searchPanel.add(line3);
+
+        // Thêm panel tìm kiếm vào phía trên cùng
+        add(searchPanel, BorderLayout.NORTH);
 
         // Giao diện nhập liệu
         JPanel form = new JPanel(new GridLayout(3, 2, 5, 5));
@@ -86,6 +115,29 @@ public class ClassPanel extends JPanel {
                     }
                 }
             }
+        });
+        btnSearchName.addActionListener(e -> {
+            String keyword = txtSearchName.getText().trim();
+            if (keyword.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập tên lớp.");
+                return;
+            }
+            List<ClassRoom> results = classController.searchByClassName(keyword);
+            updateClassList(results);
+        });
+
+        btnSearchTeacherId.addActionListener(e -> {
+            String keyword = txtSearchTeacherId.getText().trim();
+            if (keyword.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập mã giáo viên.");
+                return;
+            }
+            List<ClassRoom> results = classController.searchByTeacherId(keyword);
+            updateClassList(results);
+        });
+
+        btnReset.addActionListener(e -> {
+            updateClassList(classController.getAllClasses());
         });
 
         add(left, BorderLayout.WEST);
@@ -159,4 +211,12 @@ public class ClassPanel extends JPanel {
         cbTeacher.setSelectedIndex(-1);
         classList.clearSelection();
     }
+
+    private void updateClassList(List<ClassRoom> list) {
+        classModel.clear();
+        for (ClassRoom c : list) {
+            classModel.addElement(c);
+        }
+    }
+
 }
