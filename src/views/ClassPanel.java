@@ -1,7 +1,9 @@
 package views;
 
 import controllers.ClassController;
+import controllers.TeacherController;
 import models.ClassRoom;
+import models.Teacher;
 import utils.CSVHelper;
 import utils.FilePath;
 
@@ -12,63 +14,149 @@ import java.util.List;
 
 public class ClassPanel extends JPanel {
     private final JTextField txtName = new JTextField(15);
-    private final JTextField txtTeacher = new JTextField(15);
-    private final JTextArea textArea = new JTextArea(10, 30);
+    private final JComboBox<Teacher> cbTeacher = new JComboBox<>();
+    private final DefaultListModel<ClassRoom> classModel = new DefaultListModel<>();
+    private final JList<ClassRoom> classList = new JList<>(classModel);
+
     private final ClassController classController;
-    private final DefaultComboBoxModel<ClassRoom> classModel;
-    private Runnable onClassAdded; // listener callback
 
-    public ClassPanel(ClassController controller, DefaultComboBoxModel<ClassRoom> model) {
+    public ClassPanel(ClassController controller, TeacherController teacherController) {
         this.classController = controller;
-        this.classModel = model;
-
-        // Tạo thư mục và load dữ liệu từ CSV
-        File dataDir = new File("data");
-        if (!dataDir.exists()) dataDir.mkdirs();
-        List<ClassRoom> existing = CSVHelper.readClassesFromCSV(FilePath.CLASS_CSV);
-        for (ClassRoom c : existing) {
-            classController.addClass(c);
-            classModel.addElement(c);
-            textArea.append(String.format("Lớp: %s - GVCN: %s\n", c.getName(), c.getTeacher()));
-        }
 
         setLayout(new BorderLayout());
 
-        // Form nhập liệu
+        // Load dữ liệu giáo viên
+        for (Teacher t : teacherController.getAllTeachers()) {
+            cbTeacher.addItem(t);
+        }
+
+        // Load dữ liệu lớp học
+File dataDir = new File("data");
+if (!dataDir.exists()) dataDir.mkdirs();
+ClassRoom.setTeacherController(teacherController); // Đảm bảo khi hiển thị toString()
+
+List<ClassRoom> existing = CSVHelper.readClassesFromCSV(FilePath.CLASS_CSV);
+
+// XÓA dữ liệu cũ trước khi load lại để tránh lặp
+classController.getAllClasses().clear();
+classModel.clear();
+
+for (ClassRoom c : existing) {
+    classController.addClass(c);
+    classModel.addElement(c);
+}
+
+
+        // Giao diện nhập liệu
         JPanel form = new JPanel(new GridLayout(3, 2, 5, 5));
+        form.setBorder(BorderFactory.createTitledBorder("Thông tin lớp học"));
         form.add(new JLabel("Tên lớp:"));
         form.add(txtName);
         form.add(new JLabel("GVCN:"));
-        form.add(txtTeacher);
-        JButton btnAdd = new JButton("Thêm lớp");
-        btnAdd.addActionListener(e -> addClass());
-        form.add(btnAdd);
+        form.add(cbTeacher);
 
-        add(form, BorderLayout.NORTH);
-        add(new JScrollPane(textArea), BorderLayout.CENTER);
-    }
+        JButton btnAdd = new JButton("Thêm");
+        btnAdd.addActionListener(_ -> addClass());
+        JButton btnEdit = new JButton("Sửa");
+        btnEdit.addActionListener(_ -> editClass());
+        JButton btnDelete = new JButton("Xóa");
+        btnDelete.addActionListener(_ -> deleteClass());
 
-    // Đăng ký callback khi thêm lớp
-    public void setOnClassAdded(Runnable callback) {
-        this.onClassAdded = callback;
+        JPanel buttons = new JPanel();
+        buttons.add(btnAdd);
+        buttons.add(btnEdit);
+        buttons.add(btnDelete);
+
+        JPanel left = new JPanel(new BorderLayout());
+        left.add(form, BorderLayout.CENTER);
+        left.add(buttons, BorderLayout.SOUTH);
+
+        // Danh sách lớp
+        classList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        classList.addListSelectionListener(_ -> {
+            ClassRoom selected = classList.getSelectedValue();
+            if (selected != null) {
+                txtName.setText(selected.getName());
+                // Tìm Teacher object từ ID
+                for (int i = 0; i < cbTeacher.getItemCount(); i++) {
+                    Teacher t = cbTeacher.getItemAt(i);
+                    if (t.getId().equals(selected.getTeacherId())) {
+                        cbTeacher.setSelectedIndex(i);
+                        break;
+                    }
+                }
+            }
+        });
+
+        add(left, BorderLayout.WEST);
+        add(new JScrollPane(classList), BorderLayout.CENTER);
     }
 
     private void addClass() {
         String name = txtName.getText().trim();
-        String teacher = txtTeacher.getText().trim();
-        if (name.isEmpty() || teacher.isEmpty()) {
+        Teacher selectedTeacher = (Teacher) cbTeacher.getSelectedItem();
+        if (name.isEmpty() || selectedTeacher == null) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin lớp.");
             return;
         }
+        // Kiểm tra lớp đã tồn tại chưa
+    for (ClassRoom c : classController.getAllClasses()) {
+        if (c.getName().equalsIgnoreCase(name)) {
+            JOptionPane.showMessageDialog(this, "Lớp đã tồn tại.");
+            return;
+        }
+    }
 
-        ClassRoom c = new ClassRoom(name, teacher);
+        ClassRoom c = new ClassRoom(name, selectedTeacher.getId());
         classController.addClass(c);
         classModel.addElement(c);
         CSVHelper.writeClassesToCSV(classController.getAllClasses(), FilePath.CLASS_CSV);
-        textArea.append(String.format("Lớp: %s - GVCN: %s\n", name, teacher));
+        clearForm();
+        JOptionPane.showMessageDialog(this, "Thêm lớp học thành công.");
 
-        if (onClassAdded != null) onClassAdded.run();
+    }
+
+    private void editClass() {
+        int index = classList.getSelectedIndex();
+        if (index == -1) {
+            JOptionPane.showMessageDialog(this, "Chọn lớp để sửa.");
+            return;
+        }
+
+        String name = txtName.getText().trim();
+        Teacher selectedTeacher = (Teacher) cbTeacher.getSelectedItem();
+        if (name.isEmpty() || selectedTeacher == null) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin.");
+            return;
+        }
+
+        ClassRoom updated = new ClassRoom(name, selectedTeacher.getId());
+        classController.getAllClasses().set(index, updated);
+        classModel.set(index, updated);
+        CSVHelper.writeClassesToCSV(classController.getAllClasses(), FilePath.CLASS_CSV);
+        clearForm();
+        JOptionPane.showMessageDialog(this, "Sửa lớp học thành công.");
+
+    }
+
+    private void deleteClass() {
+        int index = classList.getSelectedIndex();
+        if (index == -1) {
+            JOptionPane.showMessageDialog(this, "Chọn lớp để xóa.");
+            return;
+        }
+
+        classController.getAllClasses().remove(index);
+        classModel.remove(index);
+        CSVHelper.writeClassesToCSV(classController.getAllClasses(), FilePath.CLASS_CSV);
+        clearForm();
+        JOptionPane.showMessageDialog(this, "Xóa lớp học thành công.");
+
+    }
+
+    private void clearForm() {
         txtName.setText("");
-        txtTeacher.setText("");
+        cbTeacher.setSelectedIndex(-1);
+        classList.clearSelection();
     }
 }

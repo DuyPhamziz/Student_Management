@@ -7,7 +7,7 @@ import models.Student;
 public class StudentTable extends AbstractTableModel {
 
     private final List<Student> students;
-    private final String[] columnNames = {"Mã số", "Tên", "Lớp", "Niên khóa", "GVCN"};
+    private final String[] columnNames = {"Mã số", "Tên", "Lớp", "Niên khóa", "GVCN", "Giới tính"};
 
     public StudentTable(List<Student> students) {
         this.students = students;
@@ -36,18 +36,13 @@ public class StudentTable extends AbstractTableModel {
     public Object getValueAt(int row, int col) {
         Student s = students.get(row);
         return switch (col) {
-            case 0 ->
-                s.getId();
-            case 1 ->
-                s.getName();
-            case 2 ->
-                s.getClassId();
-            case 3 ->
-                s.getSchoolYear();
-            case 4 ->
-                s.getHomeroomTeacher();
-            default ->
-                null;
+            case 0 -> s.getId();
+            case 1 -> s.getName();
+            case 2 -> s.getClassId();
+            case 3 -> s.getSchoolYear();
+            case 4 -> s.getHomeroomTeacher();
+            case 5 -> s.getGender(); // ➕ THÊM GIỚI TÍNH
+            default -> null;
         };
     }
 }
