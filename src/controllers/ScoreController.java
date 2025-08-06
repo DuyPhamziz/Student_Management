@@ -41,5 +41,12 @@ public class ScoreController {
                  .filter(score -> score.getStudentId().equals(studentId))
                  .collect(Collectors.toList());
 }
+public boolean hasScore(String studentId, String subject) {
+    return scores.stream()
+        .anyMatch(score -> 
+            score.getStudentId().equals(studentId) && 
+            score.getSubject().equalsIgnoreCase(subject)
+        );
+}
 
 }

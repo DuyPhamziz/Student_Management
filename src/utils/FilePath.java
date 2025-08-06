@@ -5,4 +5,6 @@ public class FilePath {
     public static final String CLASS_CSV = "data/classes.csv";
     public static final String SCORE_CSV = "data/scores.csv";
     public static final String SUBJECT_CSV = "data/subjects.csv";
+    public static final String TEACHER_CSV = "data/teachers.csv";
+
 }
