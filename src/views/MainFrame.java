@@ -18,7 +18,6 @@ import utils.CSVHelper;
 import utils.FilePath;
 import java.util.Comparator;
 
-
 public class MainFrame extends JFrame {
 
     private static final String STUDENT_CSV = FilePath.STUDENT_CSV;
@@ -79,7 +78,11 @@ public class MainFrame extends JFrame {
         classController.getAllClasses().addAll(classes);
 
         List<Student> students = CSVHelper.readStudentsFromCSV(STUDENT_CSV);
-        students.sort(Comparator.comparing(Student::getLastName, String.CASE_INSENSITIVE_ORDER));
+        students.sort(
+                Comparator.comparing(Student::getLastName, String.CASE_INSENSITIVE_ORDER)
+                        .thenComparing(Student::getId, String.CASE_INSENSITIVE_ORDER)
+        );
+
         studentController.getAllStudents().clear();
         studentController.getAllStudents().addAll(students);
 
@@ -170,7 +173,7 @@ public class MainFrame extends JFrame {
 
         int year = Year.now().getValue();
         String schoolYear = year + "-" + (year + 1);
-        String id = generateStudentId(selectedClass.getName(), year);
+        String id = generateStudentId(year);
 
         Teacher t = teacherMap.get(selectedClass.getTeacherId());
         Student s = new Student(name, id, selectedClass.getName(), schoolYear, t != null ? t.getName() : "", gender);
@@ -250,12 +253,22 @@ public class MainFrame extends JFrame {
         table.clearSelection();
     }
 
-    private String generateStudentId(String classId, int year) {
-        long count = studentController.getAllStudents().stream()
-                .filter(s -> s.getClassId().equals(classId))
-                .count() + 1;
-        String yearCode = String.format("%03d", year % 1000);
-        String countCode = String.format("%03d", count);
+    private String generateStudentId(int year) {
+        // Tìm mã số lớn nhất đã được dùng trên toàn hệ thống
+        long maxNumber = studentController.getAllStudents().stream()
+                .mapToLong(s -> {
+                    try {
+                        String idPart = s.getId().substring(5); // Bỏ "HS025"
+                        return Long.parseLong(idPart);
+                    } catch (Exception e) {
+                        return 0;
+                    }
+                })
+                .max()
+                .orElse(0);
+
+        String yearCode = String.format("%03d", year % 1000); // VD: 2025 -> 025
+        String countCode = String.format("%03d", maxNumber + 1); // VD: 000 + 1 -> 001
         return "HS" + yearCode + countCode;
     }
 
@@ -276,7 +289,6 @@ public class MainFrame extends JFrame {
         form.add(cbSubject);
         form.add(new JLabel("Điểm:"));
         form.add(txtScore);
-
 
         JButton btnReport = new JButton("Xem học bạ");
         form.add(btnReport);
