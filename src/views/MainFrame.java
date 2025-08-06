@@ -18,7 +18,6 @@ import utils.CSVHelper;
 import utils.FilePath;
 import java.util.Comparator;
 
-
 public class MainFrame extends JFrame {
 
     private static final String STUDENT_CSV = FilePath.STUDENT_CSV;
@@ -32,15 +31,15 @@ public class MainFrame extends JFrame {
 
     private final JTextField txtName = new JTextField(15);
     private final JComboBox<ClassRoom> cbClass = new JComboBox<>(classModel);
-    private final JComboBox<String> cbGender = new JComboBox<>(new String[]{"Nam", "Nữ"});
+    private final JComboBox<String> cbGender = new JComboBox<>(new String[] { "Nam", "Nữ" });
     private final JTextField txtTeacher = new JTextField(15);
     private final JButton btnAdd = new JButton("Thêm");
     private final JButton btnEdit = new JButton("Sửa");
     private final JButton btnDelete = new JButton("Xóa");
     private static final String[] SUBJECTS = {
-        "Ngữ văn", "Toán", "Ngoại ngữ 1", "Giáo dục thể chất",
-        "Giáo dục QP-AN", "Lịch sử", "Địa lý", "Hóa học",
-        "Sinh học", "Vật lý", "Tiếng dân tộc", "Ngoại ngữ 2"
+            "Ngữ văn", "Toán", "Ngoại ngữ 1", "Giáo dục thể chất",
+            "Giáo dục QP-AN", "Lịch sử", "Địa lý", "Hóa học",
+            "Sinh học", "Vật lý", "Tiếng dân tộc", "Ngoại ngữ 2"
     };
 
     private final JComboBox<String> cbSubject = new JComboBox<>(SUBJECTS);
@@ -110,7 +109,7 @@ public class MainFrame extends JFrame {
         form.add(txtName);
 
         form.add(new JLabel("Lớp:"));
-        cbClass.addActionListener(_ -> updateTeacherField());
+        cbClass.addActionListener(e -> updateTeacherField());
         form.add(cbClass);
 
         form.add(new JLabel("Giới tính:"));
@@ -127,14 +126,14 @@ public class MainFrame extends JFrame {
 
         form.add(btns);
 
-        btnAdd.addActionListener(_ -> addStudent());
-        btnEdit.addActionListener(_ -> editStudent());
-        btnDelete.addActionListener(_ -> deleteStudent());
+        btnAdd.addActionListener(e -> addStudent());
+        btnEdit.addActionListener(e -> editStudent());
+        btnDelete.addActionListener(e -> deleteStudent());
 
         table.setFont(new Font("Arial", Font.PLAIN, 14));
         table.setRowHeight(22);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        table.getSelectionModel().addListSelectionListener(_ -> updateFormFromTable());
+        table.getSelectionModel().addListSelectionListener(e -> updateFormFromTable());
 
         panel.add(form, BorderLayout.EAST);
         panel.add(new JScrollPane(table), BorderLayout.CENTER);
@@ -264,7 +263,8 @@ public class MainFrame extends JFrame {
 
         JPanel form = new JPanel(new GridLayout(6, 2, 5, 5));
 
-        JComboBox<Student> cbStudent = new JComboBox<>(new DefaultComboBoxModel<>(studentController.getAllStudents().toArray(new Student[0])));
+        JComboBox<Student> cbStudent = new JComboBox<>(
+                new DefaultComboBoxModel<>(studentController.getAllStudents().toArray(new Student[0])));
 
         JTextField txtScore = new JTextField();
         JLabel lblResult = new JLabel(" ");
@@ -276,7 +276,6 @@ public class MainFrame extends JFrame {
         form.add(cbSubject);
         form.add(new JLabel("Điểm:"));
         form.add(txtScore);
-
 
         JButton btnReport = new JButton("Xem học bạ");
         form.add(btnReport);
@@ -322,7 +321,7 @@ public class MainFrame extends JFrame {
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE,
                         null,
-                        new Object[]{"Thay đổi", "Hủy bỏ"},
+                        new Object[] { "Thay đổi", "Hủy bỏ" },
                         "Hủy bỏ");
 
                 if (choice == JOptionPane.YES_OPTION) {

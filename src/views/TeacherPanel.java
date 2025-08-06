@@ -29,11 +29,11 @@ public class TeacherPanel extends JPanel {
         form.add(txtId);
 
         JButton btnAdd = new JButton("Thêm");
-        btnAdd.addActionListener(_ -> addTeacher());
+        btnAdd.addActionListener(e -> addTeacher());
         JButton btnEdit = new JButton("Sửa");
-        btnEdit.addActionListener(_ -> editTeacher());
+        btnEdit.addActionListener(e -> editTeacher());
         JButton btnDelete = new JButton("Xóa");
-        btnDelete.addActionListener(_ -> deleteTeacher());
+        btnDelete.addActionListener(e -> deleteTeacher());
 
         JPanel btns = new JPanel();
         btns.add(btnAdd);
@@ -45,7 +45,7 @@ public class TeacherPanel extends JPanel {
         left.add(btns, BorderLayout.SOUTH);
 
         teacherList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        teacherList.addListSelectionListener(_ -> {
+        teacherList.addListSelectionListener(e -> {
             Teacher selected = teacherList.getSelectedValue();
             if (selected != null) {
                 txtName.setText(selected.getName());

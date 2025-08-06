@@ -31,21 +31,21 @@ public class ClassPanel extends JPanel {
         }
 
         // Load dữ liệu lớp học
-File dataDir = new File("data");
-if (!dataDir.exists()) dataDir.mkdirs();
-ClassRoom.setTeacherController(teacherController); // Đảm bảo khi hiển thị toString()
+        File dataDir = new File("data");
+        if (!dataDir.exists())
+            dataDir.mkdirs();
+        ClassRoom.setTeacherController(teacherController); // Đảm bảo khi hiển thị toString()
 
-List<ClassRoom> existing = CSVHelper.readClassesFromCSV(FilePath.CLASS_CSV);
+        List<ClassRoom> existing = CSVHelper.readClassesFromCSV(FilePath.CLASS_CSV);
 
-// XÓA dữ liệu cũ trước khi load lại để tránh lặp
-classController.getAllClasses().clear();
-classModel.clear();
+        // XÓA dữ liệu cũ trước khi load lại để tránh lặp
+        classController.getAllClasses().clear();
+        classModel.clear();
 
-for (ClassRoom c : existing) {
-    classController.addClass(c);
-    classModel.addElement(c);
-}
-
+        for (ClassRoom c : existing) {
+            classController.addClass(c);
+            classModel.addElement(c);
+        }
 
         // Giao diện nhập liệu
         JPanel form = new JPanel(new GridLayout(3, 2, 5, 5));
@@ -56,11 +56,11 @@ for (ClassRoom c : existing) {
         form.add(cbTeacher);
 
         JButton btnAdd = new JButton("Thêm");
-        btnAdd.addActionListener(_ -> addClass());
+        btnAdd.addActionListener(e -> addClass());
         JButton btnEdit = new JButton("Sửa");
-        btnEdit.addActionListener(_ -> editClass());
+        btnEdit.addActionListener(e -> editClass());
         JButton btnDelete = new JButton("Xóa");
-        btnDelete.addActionListener(_ -> deleteClass());
+        btnDelete.addActionListener(e -> deleteClass());
 
         JPanel buttons = new JPanel();
         buttons.add(btnAdd);
@@ -73,7 +73,7 @@ for (ClassRoom c : existing) {
 
         // Danh sách lớp
         classList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        classList.addListSelectionListener(_ -> {
+        classList.addListSelectionListener(e -> {
             ClassRoom selected = classList.getSelectedValue();
             if (selected != null) {
                 txtName.setText(selected.getName());
@@ -100,12 +100,12 @@ for (ClassRoom c : existing) {
             return;
         }
         // Kiểm tra lớp đã tồn tại chưa
-    for (ClassRoom c : classController.getAllClasses()) {
-        if (c.getName().equalsIgnoreCase(name)) {
-            JOptionPane.showMessageDialog(this, "Lớp đã tồn tại.");
-            return;
+        for (ClassRoom c : classController.getAllClasses()) {
+            if (c.getName().equalsIgnoreCase(name)) {
+                JOptionPane.showMessageDialog(this, "Lớp đã tồn tại.");
+                return;
+            }
         }
-    }
 
         ClassRoom c = new ClassRoom(name, selectedTeacher.getId());
         classController.addClass(c);
