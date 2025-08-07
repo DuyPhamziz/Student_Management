@@ -8,9 +8,9 @@ public class StudentTable extends AbstractTableModel {
 
     private final List<Student> students;
 
-    // 👉 Các cột hiển thị
     private final String[] columnNames = {
-        "Mã HS", "Họ và tên đệm", "Tên", "Giới tính", "Lớp", "GVCN", "Năm học"
+            "Mã HS", "Họ và tên đệm", "Tên", "Giới tính", "Lớp", "GVCN", "Năm học",
+            "Dân tộc", "Ngày sinh", "Nơi sinh", "Nơi ở", "Phụ huynh"
     };
 
     public StudentTable(List<Student> students) {
@@ -36,7 +36,8 @@ public class StudentTable extends AbstractTableModel {
     public Object getValueAt(int row, int col) {
         Student s = students.get(row);
         String[] parts = s.getName().trim().split("\\s+");
-        String hoTenDem = parts.length > 1 ? String.join(" ", java.util.Arrays.copyOfRange(parts, 0, parts.length - 1)) : "";
+        String hoTenDem = parts.length > 1 ? String.join(" ", java.util.Arrays.copyOfRange(parts, 0, parts.length - 1))
+                : "";
         String ten = parts.length > 0 ? parts[parts.length - 1] : "";
 
         return switch (col) {
@@ -47,8 +48,13 @@ public class StudentTable extends AbstractTableModel {
             case 4 -> s.getClassId();
             case 5 -> s.getHomeroomTeacher();
             case 6 -> s.getSchoolYear();
+            case 7 -> s.getNation();
+            case 8 -> s.getDate();
+            case 9 -> s.getPlaceBirth();
+            case 10 -> s.getPlaceLive();
+            case 11 -> s.getParent();
             default -> null;
         };
     }
-    
+
 }

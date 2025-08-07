@@ -9,6 +9,8 @@ import java.time.Year;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+
 import javax.swing.*;
 import models.ClassRoom;
 import models.Score;
@@ -30,6 +32,12 @@ public class MainFrame extends JFrame {
     private final DefaultComboBoxModel<ClassRoom> classModel = new DefaultComboBoxModel<>();
 
     private final JTextField txtName = new JTextField(15);
+    private final JTextField txtNation = new JTextField(15);
+    private final JTextField txtDate = new JTextField(15);
+    private final JTextField txtPlaceBirth = new JTextField(15);
+    private final JTextField txtPlaceLive = new JTextField(15);
+    private final JTextField txtParent = new JTextField(15);
+
     private final JComboBox<ClassRoom> cbClass = new JComboBox<>(classModel);
     private final JComboBox<String> cbGender = new JComboBox<>(new String[] { "Nam", "Nữ" });
     private final JTextField txtTeacher = new JTextField(15);
@@ -107,176 +115,154 @@ public class MainFrame extends JFrame {
         tabs.addTab("Giáo viên", new TeacherPanel(teacherController));
         tabs.addTab("Xuất theo lớp", new ExportByClassPanel(classController, studentController));
 
-
         add(tabs);
         setVisible(true);
     }
 
     private JPanel createStudentPanel() {
-        JPanel panel = new JPanel(new BorderLayout());
+        JPanel panel = new JPanel(new BorderLayout(10, 10));
 
-        JPanel form = new JPanel();
-        form.setLayout(new BoxLayout(form, BoxLayout.Y_AXIS));
-        form.setBorder(BorderFactory.createTitledBorder("Thông tin học sinh"));
+        // --- FORM BÊN TRÁI ---
+        JPanel formPanel = new JPanel();
+        formPanel.setLayout(new GridBagLayout());
+        formPanel.setBorder(BorderFactory.createTitledBorder("Nhập thông tin học sinh"));
 
-        form.add(new JLabel("Họ tên:"));
-        form.add(txtName);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5); // padding
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        form.add(new JLabel("Lớp:"));
-        cbClass.addActionListener(e -> updateTeacherField());
-        form.add(cbClass);
+        int row = 0;
 
-        form.add(new JLabel("Giới tính:"));
-        form.add(cbGender);
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        formPanel.add(new JLabel("Tên học sinh:"), gbc);
+        gbc.gridx = 1;
+        formPanel.add(txtName, gbc);
+        row++;
 
-        form.add(new JLabel("GVCN:"));
-        txtTeacher.setEditable(false);
-        form.add(txtTeacher);
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        formPanel.add(new JLabel("Giới tính:"), gbc);
+        gbc.gridx = 1;
+        formPanel.add(cbGender, gbc);
+        row++;
 
-        JPanel btns = new JPanel();
-        btns.add(btnAdd);
-        btns.add(btnEdit);
-        btns.add(btnDelete);
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        formPanel.add(new JLabel("Lớp học:"), gbc);
+        gbc.gridx = 1;
+        formPanel.add(cbClass, gbc);
+        row++;
 
-        form.add(btns);
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        formPanel.add(new JLabel("GVCN:"), gbc);
+        gbc.gridx = 1;
+        formPanel.add(txtTeacher, gbc);
+        row++;
 
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        formPanel.add(new JLabel("Dân tộc:"), gbc);
+        gbc.gridx = 1;
+        formPanel.add(txtNation, gbc);
+        row++;
+
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        formPanel.add(new JLabel("Ngày sinh:"), gbc);
+        gbc.gridx = 1;
+        formPanel.add(txtDate, gbc);
+        row++;
+
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        formPanel.add(new JLabel("Nơi sinh:"), gbc);
+        gbc.gridx = 1;
+        formPanel.add(txtPlaceBirth, gbc);
+        row++;
+
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        formPanel.add(new JLabel("Nơi ở hiện tại:"), gbc);
+        gbc.gridx = 1;
+        formPanel.add(txtPlaceLive, gbc);
+        row++;
+
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        formPanel.add(new JLabel("Phụ huynh:"), gbc);
+        gbc.gridx = 1;
+        formPanel.add(txtParent, gbc);
+        row++;
+
+        // Buttons
+        JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
+        btnPanel.add(btnAdd);
+        btnPanel.add(btnEdit);
+        btnPanel.add(btnDelete);
         btnAdd.addActionListener(e -> addStudent());
         btnEdit.addActionListener(e -> editStudent());
         btnDelete.addActionListener(e -> deleteStudent());
-        btnSearchId.addActionListener(e -> {
-            String keyword = txtSearchId.getText().trim();
-            if (keyword.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Nhập mã số học sinh để tìm kiếm.");
-                return;
-            }
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        gbc.gridwidth = 2;
+        formPanel.add(btnPanel, gbc);
 
-            List<Student> results = studentController.searchStudentsById(keyword);
-            if (results.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Không tìm thấy học sinh có mã chứa: " + keyword);
-            } else {
-                table.setModel(new StudentTable(results));
-            }
-        });
-
-        btnSearchName.addActionListener(e -> {
-            String name = txtSearchName.getText().trim();
-            if (name.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Nhập tên để tìm kiếm.");
-                return;
-            }
-
-            List<Student> results = studentController.searchStudentsByName(name);
-            if (results.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Không tìm thấy học sinh có tên chứa: " + name);
-            } else {
-                table.setModel(new StudentTable(results));
-            }
-        });
-
-        btnReset.addActionListener(e -> {
-            table.setModel(new StudentTable(studentController.getAllStudents()));
-        });
-
-        table.setFont(new Font("Arial", Font.PLAIN, 14));
-        table.setRowHeight(22);
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        table.getSelectionModel().addListSelectionListener(e -> updateFormFromTable());
-        // Tạo panel chính chứa các dòng tìm kiếm
-        JPanel searchPanel = new JPanel();
-        searchPanel.setLayout(new BoxLayout(searchPanel, BoxLayout.Y_AXIS));
+        // --- SEARCH PANEL ---
+        JPanel searchPanel = new JPanel(new GridLayout(3, 1, 5, 5));
         searchPanel.setBorder(BorderFactory.createTitledBorder("Tìm kiếm học sinh"));
 
-        // Dòng tìm theo MSSV
         JPanel line1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        line1.add(new JLabel("Nhập mã số học sinh:"));
+        line1.add(new JLabel("MSSV:"));
         line1.add(txtSearchId);
         line1.add(btnSearchId);
 
-        // Dòng tìm theo tên
         JPanel line2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        line2.add(new JLabel("Nhập họ tên học sinh:"));
+        line2.add(new JLabel("Họ tên:"));
         line2.add(txtSearchName);
         line2.add(btnSearchName);
 
-        // Nút hiển thị tất cả
         JPanel line3 = new JPanel(new FlowLayout(FlowLayout.LEFT));
         line3.add(btnReset);
 
-        // Thêm các dòng vào panel chính
         searchPanel.add(line1);
         searchPanel.add(line2);
         searchPanel.add(line3);
 
-        // Thêm toàn bộ khung tìm kiếm vào bên trên bảng
-        panel.add(searchPanel, BorderLayout.NORTH);
-
-        JPanel filterPanel = new JPanel();
-        filterPanel.setBorder(BorderFactory.createTitledBorder("Phân loại học sinh"));
-        filterPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        // --- FILTER PANEL ---
+        JPanel filterPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
+        filterPanel.setBorder(BorderFactory.createTitledBorder("Lọc học sinh"));
 
         filterPanel.add(new JLabel("Giới tính:"));
         filterPanel.add(cbFilterGender);
         filterPanel.add(btnFilterGender);
 
         filterPanel.add(new JLabel("Lớp:"));
-        cbFilterClass.removeAllItems();
-        
-        cbFilterClass.addItem(null); // Cho phép chọn "Tất cả"
-        for (ClassRoom c : classController.getAllClasses())
-            cbFilterClass.addItem(new ClassRoom(c.getName(), c.getTeacherId()) {
-                @Override
-                public String toString() {
-                    return getDisplayNameOnly(); // chỉ hiển thị tên lớp
-                }
-            });
         filterPanel.add(cbFilterClass);
         filterPanel.add(btnFilterClass);
 
         filterPanel.add(new JLabel("GVCN:"));
-        cbFilterTeacher.removeAllItems();
-        cbFilterTeacher.addItem(null);
-        for (Teacher t : teacherController.getAllTeachers())
-            cbFilterTeacher.addItem(t);
         filterPanel.add(cbFilterTeacher);
         filterPanel.add(btnFilterTeacher);
 
-        // Thêm vào panel:
-        panel.add(filterPanel, BorderLayout.SOUTH);
+        // --- TABLE ---
+        table.setFont(new Font("Arial", Font.PLAIN, 14));
+        table.setRowHeight(22);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        JScrollPane tableScroll = new JScrollPane(table);
 
-        panel.add(form, BorderLayout.EAST);
-        panel.add(new JScrollPane(table), BorderLayout.CENTER);
-        btnFilterGender.addActionListener(e -> {
-            String gender = (String) cbFilterGender.getSelectedItem();
-            if (gender == null || gender.equals("Tất cả")) {
-                table.setModel(new StudentTable(studentController.getAllStudents()));
-            } else {
-                table.setModel(new StudentTable(studentController.filterByGender(gender)));
-            }
-        });
+        // --- COMBINE SEARCH + FILTER ---
+        JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel.add(searchPanel, BorderLayout.NORTH);
+        topPanel.add(filterPanel, BorderLayout.SOUTH);
 
-        btnFilterClass.addActionListener(e -> {
-            ClassRoom selectedClass = (ClassRoom) cbFilterClass.getSelectedItem();
-            if (selectedClass == null) {
-                table.setModel(new StudentTable(studentController.getAllStudents()));
-            } else {
-                List<Student> filtered = studentController.getAllStudents().stream()
-                        .filter(s -> s.getClassId().equals(selectedClass.getName()))
-                        .toList();
-                table.setModel(new StudentTable(filtered));
-            }
-        });
+        // --- TỔNG HỢP ---
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, formPanel, tableScroll);
+        splitPane.setResizeWeight(0.3); // 30% cho form, 70% cho bảng
 
-        btnFilterTeacher.addActionListener(e -> {
-            Teacher selectedTeacher = (Teacher) cbFilterTeacher.getSelectedItem();
-            if (selectedTeacher == null) {
-                table.setModel(new StudentTable(studentController.getAllStudents()));
-            } else {
-                List<Student> filtered = studentController.getAllStudents().stream()
-                        .filter(s -> s.getHomeroomTeacher().equalsIgnoreCase(selectedTeacher.getName()))
-                        .toList();
-                table.setModel(new StudentTable(filtered));
-            }
-        });
+        panel.add(topPanel, BorderLayout.NORTH);
+        panel.add(splitPane, BorderLayout.CENTER);
 
         return panel;
     }
@@ -302,7 +288,14 @@ public class MainFrame extends JFrame {
         String name = txtName.getText().trim();
         String gender = (String) cbGender.getSelectedItem();
         ClassRoom selectedClass = (ClassRoom) cbClass.getSelectedItem();
-        if (name.isEmpty() || selectedClass == null || gender == null) {
+        String nation = txtNation.getText().trim();
+        String date = txtDate.getText().trim();
+        String placeBirth = txtPlaceBirth.getText().trim();
+        String placeLive = txtPlaceLive.getText().trim();
+        String parent = txtParent.getText().trim();
+
+        if (name.isEmpty() || selectedClass == null || gender == null || nation.isEmpty() || date.isEmpty() ||
+                placeBirth.isEmpty() || placeLive.isEmpty() || parent.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin.");
             return;
         }
@@ -312,8 +305,10 @@ public class MainFrame extends JFrame {
         String id = generateStudentId(selectedClass.getName(), year);
 
         Teacher t = teacherMap.get(selectedClass.getTeacherId());
-        Student s = new Student(name, id, selectedClass.getName(), schoolYear, t != null ? t.getName() : "", gender);
-        s.setGender(gender);
+        String homeroomTeacher = t != null ? t.getName() : "";
+
+        Student s = new Student(name, id, selectedClass.getName(), schoolYear, homeroomTeacher, gender,
+                nation, date, placeBirth, placeLive, parent);
 
         studentController.addStudent(s);
         CSVHelper.writeStudentsToCSV(studentController.getAllStudents(), STUDENT_CSV);
@@ -332,7 +327,14 @@ public class MainFrame extends JFrame {
         String name = txtName.getText().trim();
         String gender = (String) cbGender.getSelectedItem();
         ClassRoom selectedClass = (ClassRoom) cbClass.getSelectedItem();
-        if (name.isEmpty() || selectedClass == null || gender == null) {
+        String nation = txtNation.getText().trim();
+        String date = txtDate.getText().trim();
+        String placeBirth = txtPlaceBirth.getText().trim();
+        String placeLive = txtPlaceLive.getText().trim();
+        String parent = txtParent.getText().trim();
+
+        if (name.isEmpty() || selectedClass == null || gender == null || nation.isEmpty() || date.isEmpty() ||
+                placeBirth.isEmpty() || placeLive.isEmpty() || parent.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin.");
             return;
         }
@@ -342,6 +344,11 @@ public class MainFrame extends JFrame {
         s.setGender(gender);
         s.setClassId(selectedClass.getName());
         s.setHomeroomTeacher(teacherMap.get(selectedClass.getTeacherId()).getName());
+        s.setNation(nation);
+        s.setDate(date);
+        s.setPlaceBirth(placeBirth);
+        s.setPlaceLive(placeLive);
+        s.setParent(parent);
 
         CSVHelper.writeStudentsToCSV(studentController.getAllStudents(), STUDENT_CSV);
         tableModel.fireTableDataChanged();
@@ -365,13 +372,26 @@ public class MainFrame extends JFrame {
 
     private void updateFormFromTable() {
         int index = table.getSelectedRow();
-        if (index == -1) {
+        if (index == -1)
             return;
-        }
 
         Student s = studentController.getAllStudents().get(index);
         txtName.setText(s.getName());
-        cbGender.setSelectedItem(s.getGender());
+
+        String gender = s.getGender().trim(); // ✅ sửa ở đây
+        if (gender.equalsIgnoreCase("Nam")) {
+            cbGender.setSelectedItem("Nam");
+        } else if (gender.equalsIgnoreCase("Nữ")) {
+            cbGender.setSelectedItem("Nữ");
+        } else {
+            cbGender.setSelectedIndex(0); // fallback
+        }
+
+        txtNation.setText(s.getNation());
+        txtDate.setText(s.getDate());
+        txtPlaceBirth.setText(s.getPlaceBirth());
+        txtPlaceLive.setText(s.getPlaceLive());
+        txtParent.setText(s.getParent());
 
         for (int i = 0; i < cbClass.getItemCount(); i++) {
             if (cbClass.getItemAt(i).getName().equals(s.getClassId())) {
@@ -383,10 +403,13 @@ public class MainFrame extends JFrame {
 
     private void clearForm() {
         txtName.setText("");
-        cbClass.setSelectedIndex(-1);
-        cbGender.setSelectedIndex(-1);
-        txtTeacher.setText("");
-        table.clearSelection();
+        cbGender.setSelectedIndex(0);
+        cbClass.setSelectedIndex(0);
+        txtNation.setText("");
+        txtDate.setText("");
+        txtPlaceBirth.setText("");
+        txtPlaceLive.setText("");
+        txtParent.setText("");
     }
 
     private String generateStudentId(String classId, int year) {
@@ -399,107 +422,137 @@ public class MainFrame extends JFrame {
     }
 
     private JPanel createScorePanel(ScoreController scoreController) {
-        JPanel panel = new JPanel(new BorderLayout());
+    JPanel panel = new JPanel(new BorderLayout(10, 10));
 
-        JPanel form = new JPanel(new GridLayout(6, 2, 5, 5));
+    // ComboBox chọn học sinh và môn học
+    JComboBox<Student> cbStudent = new JComboBox<>(new DefaultComboBoxModel<>(
+            studentController.getAllStudents().toArray(new Student[0])));
+    JComboBox<String> cbSubject = new JComboBox<>(new String[]{
+           "Ngữ văn", "Toán", "Ngoại ngữ 1", "Giáo dục thể chất",
+            "Giáo dục QP-AN", "Lịch sử", "Địa lý", "Hóa học",
+            "Sinh học", "Vật lý", "Tiếng dân tộc", "Ngoại ngữ 2"
+    });
 
-        JComboBox<Student> cbStudent = new JComboBox<>(
-                new DefaultComboBoxModel<>(studentController.getAllStudents().toArray(new Student[0])));
+    JTextField txtScore = new JTextField(10);
+    JLabel lblResult = new JLabel(" ", SwingConstants.CENTER);
+    lblResult.setFont(new Font("Arial", Font.BOLD, 14));
+    lblResult.setForeground(new Color(0, 102, 0));
 
-        JTextField txtScore = new JTextField();
-        JLabel lblResult = new JLabel(" ");
+    // === KHỐI NHẬP ĐIỂM ===
+    JPanel form = new JPanel(new GridBagLayout());
+    form.setBorder(BorderFactory.createTitledBorder("Nhập điểm học sinh"));
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.insets = new Insets(8, 8, 8, 8);
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    gbc.gridx = 0;
+    gbc.gridy = 0;
+    form.add(new JLabel("Học sinh:"), gbc);
+    gbc.gridx = 1;
+    form.add(cbStudent, gbc);
 
-        form.setBorder(BorderFactory.createTitledBorder("Nhập điểm học sinh"));
-        form.add(new JLabel("Chọn học sinh:"));
-        form.add(cbStudent);
-        form.add(new JLabel("Môn học:"));
-        form.add(cbSubject);
-        form.add(new JLabel("Điểm:"));
-        form.add(txtScore);
+    gbc.gridx = 0;
+    gbc.gridy++;
+    form.add(new JLabel("Môn học:"), gbc);
+    gbc.gridx = 1;
+    form.add(cbSubject, gbc);
 
-        JButton btnReport = new JButton("Xem học bạ");
-        form.add(btnReport);
+    gbc.gridx = 0;
+    gbc.gridy++;
+    form.add(new JLabel("✏️ Điểm:"), gbc);
+    gbc.gridx = 1;
+    form.add(txtScore, gbc);
 
-        JButton btnAdd = new JButton("Lưu điểm");
-        form.add(btnAdd);
+    // === KHỐI NÚT CHỨC NĂNG ===
+    JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
+    JButton btnBulkEntry = new JButton("📥 Nhập điểm hàng loạt");
+    JButton btnSave = new JButton("💾 Lưu điểm");
+    JButton btnReport = new JButton("📄 Xem học bạ");
 
-        panel.add(form, BorderLayout.NORTH);
-        panel.add(lblResult, BorderLayout.SOUTH);
+    buttonPanel.add(btnBulkEntry);
+    buttonPanel.add(btnSave);
+    buttonPanel.add(btnReport);
 
-        btnAdd.addActionListener(e -> {
-            Student s = (Student) cbStudent.getSelectedItem();
-            String subject = (String) cbSubject.getSelectedItem();
-            double score;
+    // === THÊM VÀO PANEL CHÍNH ===
+    JPanel top = new JPanel(new BorderLayout());
+    top.add(form, BorderLayout.CENTER);
+    top.add(buttonPanel, BorderLayout.SOUTH);
 
-            // Kiểm tra điểm hợp lệ
-            try {
-                score = Double.parseDouble(txtScore.getText().trim());
-                if (score < 0 || score > 10) {
-                    JOptionPane.showMessageDialog(panel, "Điểm phải từ 0 đến 10.");
-                    return;
-                }
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(panel, "Điểm không hợp lệ.");
+    panel.add(top, BorderLayout.NORTH);
+    panel.add(lblResult, BorderLayout.SOUTH);
+
+    // === SỰ KIỆN ===
+    btnBulkEntry.addActionListener(e -> {
+        BulkScoreEntryFrame bulkFrame = new BulkScoreEntryFrame(
+                studentController, scoreController, classController);
+        bulkFrame.setVisible(true);
+    });
+
+    btnSave.addActionListener(e -> {
+        Student s = (Student) cbStudent.getSelectedItem();
+        String subject = (String) cbSubject.getSelectedItem();
+        String rawScore = txtScore.getText().trim();
+
+        if (s == null || subject == null || subject.isEmpty()) {
+            JOptionPane.showMessageDialog(panel, "Vui lòng chọn học sinh và môn học.");
+            return;
+        }
+
+        double score;
+        try {
+            score = Double.parseDouble(rawScore);
+            if (score < 0 || score > 10) {
+                JOptionPane.showMessageDialog(panel, "Điểm phải từ 0 đến 10.");
                 return;
             }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(panel, "Điểm không hợp lệ.");
+            return;
+        }
 
-            if (s == null || subject == null || subject.isEmpty()) {
-                JOptionPane.showMessageDialog(panel, "Vui lòng chọn học sinh và môn học.");
-                return;
+        List<Score> existingScores = scoreController.getScoresByStudentId(s.getId());
+        Optional<Score> existing = existingScores.stream()
+                .filter(sc -> sc.getSubject().equalsIgnoreCase(subject))
+                .findFirst();
+
+        if (existing.isPresent()) {
+            int option = JOptionPane.showConfirmDialog(panel,
+                    "Môn này đã có điểm. Bạn có muốn cập nhật?",
+                    "Xác nhận cập nhật", JOptionPane.YES_NO_OPTION);
+
+            if (option == JOptionPane.YES_OPTION) {
+                existing.get().setScore(score);
+                JOptionPane.showMessageDialog(panel, "✅ Đã cập nhật điểm.");
             }
+        } else {
+            scoreController.addScore(new Score(s.getId(), subject, score));
+            JOptionPane.showMessageDialog(panel, "✅ Đã thêm điểm mới.");
+        }
 
-            List<Score> existingScores = scoreController.getScoresByStudentId(s.getId());
-            Score existing = existingScores.stream()
-                    .filter(sc -> sc.getSubject().equalsIgnoreCase(subject))
-                    .findFirst()
-                    .orElse(null);
+        double avg = scoreController.getAverage(s.getId());
+        String level = scoreController.classify(s.getId());
+        lblResult.setText(String.format("🎓 Điểm TB: %.2f - Xếp loại: %s", avg, level));
 
-            if (existing != null) {
-                int choice = JOptionPane.showOptionDialog(panel,
-                        "Môn học này đã được nhập điểm trước đó.\nBạn có muốn thay đổi điểm không?",
-                        "Điểm đã tồn tại",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE,
-                        null,
-                        new Object[] { "Thay đổi", "Hủy bỏ" },
-                        "Hủy bỏ");
+        txtScore.setText("");
+        cbSubject.setSelectedIndex(0);
+    });
 
-                if (choice == JOptionPane.YES_OPTION) {
-                    // Cập nhật điểm
-                    existing.setScore(score);
-                    JOptionPane.showMessageDialog(panel, "Đã cập nhật điểm mới cho môn học.");
-                } else {
-                    return;
-                }
-            } else {
-                // Thêm mới
-                scoreController.addScore(new Score(s.getId(), subject, score));
-                JOptionPane.showMessageDialog(panel, "Đã lưu điểm thành công.");
-            }
+    btnReport.addActionListener(e -> {
+        Student s = (Student) cbStudent.getSelectedItem();
+        if (s == null) {
+            JOptionPane.showMessageDialog(panel, "Vui lòng chọn học sinh.");
+            return;
+        }
 
-            double avg = scoreController.getAverage(s.getId());
-            String level = scoreController.classify(s.getId());
-            lblResult.setText(String.format("TB: %.2f - Xếp loại: %s", avg, level));
+        List<Score> scores = scoreController.getScoresByStudentId(s.getId());
+        double avg = scoreController.getAverage(s.getId());
+        String level = scoreController.classify(s.getId());
 
-            txtScore.setText("");
-            cbSubject.setSelectedIndex(0);
-        });
+        ReportCardFrame report = new ReportCardFrame(s, scores, avg, level);
+        report.setVisible(true);
+    });
 
-        btnReport.addActionListener(e -> {
-            Student s = (Student) cbStudent.getSelectedItem();
-            if (s == null) {
-                JOptionPane.showMessageDialog(panel, "Chưa chọn học sinh");
-                return;
-            }
-            List<Score> scores = scoreController.getScoresByStudentId(s.getId());
-            double avg = scoreController.getAverage(s.getId());
-            String level = scoreController.classify(s.getId());
+    return panel;
+}
 
-            ReportCardFrame frame = new ReportCardFrame(s, scores, avg, level);
-            frame.setVisible(true);
-        });
-
-        return panel;
-    }
 
 }

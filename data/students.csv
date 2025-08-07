@@ -1,21 +1,121 @@
-Nguyễn Văn A,HS025001,10a1,2025-2026,Võ Trọng Phúc,Nam
-Trần Minh Khoa,HS025002,10a1,2025-2026,Võ Trọng Phúc,Nam
-Lê Ngọc Trâm,HS025003,10a1,2025-2026,Võ Trọng Phúc,Nữ
-Nguyễn Thanh Hùng,HS025004,10a2,2025-2026,Lê Hoàng Tú,Nam
-Phạm Thị Bích Ngọc,HS025005,10a2,2025-2026,Lê Hoàng Tú,Nữ
-Hoàng Anh Duy,HS025006,11a1,2025-2026,Nguyễn Hoàng Hào,Nam
-Võ Thị Kim Liên,HS025007,11a1,2025-2026,Nguyễn Hoàng Hào,Nữ
-Ngô Minh Tâm,HS025008,11a2,2025-2026,Nguyễn Huỳnh Khôi,Nam
-Đỗ Mỹ Linh,HS025009,11a2,2025-2026,Nguyễn Huỳnh Khôi,Nữ
-Lê Hữu Phước,HS025010,12a1,2025-2026,Lê Hoàng Tú,Nam
-Trần Thị Thanh Thảo,HS025011,12a1,2025-2026,Lê Hoàng Tú,Nữ
-Nguyễn Quốc Bảo,HS025012,12a2,2025-2026,Nguyễn Huỳnh Khôi,Nam
-Bùi Thùy Dương,HS025013,12a2,2025-2026,Nguyễn Huỳnh Khôi,Nữ
-Phan Văn Tài,HS025014,10a1,2025-2026,Võ Trọng Phúc,Nam
-Trương Mỹ Hạnh,HS025015,10a1,2025-2026,Võ Trọng Phúc,Nữ
-Vũ Minh Châu,HS025016,10a2,2025-2026,Lê Hoàng Tú,Nữ
-Đặng Trung Hiếu,HS025017,11a1,2025-2026,Nguyễn Hoàng Hào,Nam
-Huỳnh Thanh Trúc,HS025018,11a2,2025-2026,Nguyễn Huỳnh Khôi,Nữ
-Nguyễn Văn Bình,HS025019,12a1,2025-2026,Lê Hoàng Tú,Nam
-Trần Ngọc Ánh,HS025020,12a2,2025-2026,Nguyễn Huỳnh Khôi,Nữ
-Lý Hoàng Long,HS025021,11a1,2025-2026,Nguyễn Hoàng Hào,Nam
+Nguyễn Văn Tèo,HS025001,12A1,2025-2026,Nguyễn Văn Núi,Nam,Kinh,22/11/2008,Bệnh viện Kiên Giang,An Giang,Nguyễn Văn Tý
+Lê Thị Bé,HS025002,12A1,2025-2026,Nguyễn Văn Núi,Nữ,Kinh,15/03/2008,Bệnh viện Đa khoa Sóc Trăng,An Giang,Lê Văn An
+Trần Quốc Bảo,HS025003,12A1,2025-2026,Nguyễn Văn Núi,Nam,Kinh,01/01/2008,Bệnh viện Từ Dũ,An Giang,Trần Thị Duyên
+Phạm Thị Hoa,HS025004,12A1,2025-2026,Nguyễn Văn Núi,Nữ,Kinh,09/07/2008,Bệnh viện Hùng Vương,An Giang,Phạm Văn Bình
+Võ Minh Tuấn,HS025005,12A1,2025-2026,Nguyễn Văn Núi,Nam,Kinh,04/04/2008,Bệnh viện An Giang,An Giang,Võ Thị Mười
+Đặng Thị Hồng,HS025006,12A1,2025-2026,Nguyễn Văn Núi,Nữ,Kinh,30/10/2008,Bệnh viện Từ Dũ,An Giang,Đặng Văn Lành
+Ngô Thành Đạt,HS025007,12A1,2025-2026,Nguyễn Văn Núi,Nam,Kinh,18/05/2008,Bệnh viện Quân Y,An Giang,Ngô Thị Lý
+Huỳnh Thị Mỹ,HS025008,12A1,2025-2026,Nguyễn Văn Núi,Nữ,Kinh,27/02/2008,Bệnh viện Sài Gòn,An Giang,Huỳnh Văn Cường
+Lâm Văn Khoa,HS025009,12A1,2025-2026,Nguyễn Văn Núi,Nam,Kinh,12/06/2008,Bệnh viện Kiên Giang,An Giang,Lâm Thị Sen
+Nguyễn Thị Thu,HS025010,12A1,2025-2026,Nguyễn Văn Núi,Nữ,Kinh,21/09/2008,Bệnh viện Đa khoa Trung Ương,An Giang,Nguyễn Văn Thắng
+Phan Văn Toàn,HS025011,12A1,2025-2026,Nguyễn Văn Núi,Nam,Kinh,08/08/2008,Bệnh viện Cần Thơ,An Giang,Phan Thị Yến
+Lê Thị Trang,HS025012,12A1,2025-2026,Nguyễn Văn Núi,Nữ,Kinh,10/10/2008,Bệnh viện Kiên Giang,An Giang,Lê Văn Đạt
+Trương Quốc Cường,HS025013,12A1,2025-2026,Nguyễn Văn Núi,Nam,Kinh,14/12/2008,Bệnh viện Sài Gòn,An Giang,Trương Thị Hòa
+Đinh Thị Hằng,HS025014,12A1,2025-2026,Nguyễn Văn Núi,Nữ,Kinh,25/11/2008,Bệnh viện Từ Dũ,An Giang,Đinh Văn Nam
+Bùi Văn Hậu,HS025015,12A1,2025-2026,Nguyễn Văn Núi,Nam,Kinh,07/07/2008,Bệnh viện Hùng Vương,An Giang,Bùi Thị Mai
+Đoàn Thị Hương,HS025016,12A1,2025-2026,Nguyễn Văn Núi,Nữ,Kinh,05/02/2008,Bệnh viện Quân Y,An Giang,Đoàn Văn Sáng
+Trần Minh Nhật,HS025017,12A1,2025-2026,Nguyễn Văn Núi,Nam,Kinh,19/03/2008,Bệnh viện An Giang,An Giang,Trần Thị Nga
+Lý Thị Yến,HS025018,12A1,2025-2026,Nguyễn Văn Núi,Nữ,Kinh,03/06/2008,Bệnh viện Cần Thơ,An Giang,Lý Văn Toản
+Tô Quốc Bảo,HS025019,12A1,2025-2026,Nguyễn Văn Núi,Nam,Kinh,11/01/2008,Bệnh viện Kiên Giang,An Giang,Tô Thị Hường
+Châu Thị Thắm,HS025020,12A1,2025-2026,Nguyễn Văn Núi,Nữ,Kinh,28/04/2008,Bệnh viện Hùng Vương,An Giang,Châu Văn Lâm
+Nguyễn Văn An,HS025021,12A2,2025-2026,Nguyễn Thị Sông,Nam,Kinh,10/03/2008,Bệnh viện Đa khoa An Giang,An Giang,Nguyễn Thị Lành
+Lê Thị Lan,HS025022,12A2,2025-2026,Nguyễn Thị Sông,Nữ,Kinh,02/05/2008,Bệnh viện Phụ sản Cần Thơ,An Giang,Lê Văn Bình
+Trần Văn Nam,HS025023,12A2,2025-2026,Nguyễn Thị Sông,Nam,Kinh,17/07/2008,Bệnh viện An Giang,An Giang,Trần Thị Hoa
+Phạm Thị Hòa,HS025024,12A2,2025-2026,Nguyễn Thị Sông,Nữ,Kinh,09/09/2008,Bệnh viện Kiên Giang,An Giang,Phạm Văn Long
+Võ Văn Dũng,HS025025,12A2,2025-2026,Nguyễn Thị Sông,Nam,Kinh,06/12/2008,Bệnh viện Cần Thơ,An Giang,Võ Thị Bích
+Đặng Thị Mai,HS025026,12A2,2025-2026,Nguyễn Thị Sông,Nữ,Kinh,03/11/2008,Bệnh viện Hùng Vương,An Giang,Đặng Văn Khánh
+Ngô Văn Lâm,HS025027,12A2,2025-2026,Nguyễn Thị Sông,Nam,Kinh,28/02/2008,Bệnh viện Quân Y,An Giang,Ngô Thị Diễm
+Huỳnh Thị Tuyết,HS025028,12A2,2025-2026,Nguyễn Thị Sông,Nữ,Kinh,15/01/2008,Bệnh viện Sài Gòn,An Giang,Huỳnh Văn Long
+Lâm Thị Hằng,HS025029,12A2,2025-2026,Nguyễn Thị Sông,Nữ,Kinh,11/04/2008,Bệnh viện Đa khoa Trung Ương,An Giang,Lâm Văn Đức
+Nguyễn Thị Tâm,HS025030,12A2,2025-2026,Nguyễn Thị Sông,Nữ,Kinh,29/06/2008,Bệnh viện Từ Dũ,An Giang,Nguyễn Văn Thành
+Phan Văn Khải,HS025031,12A2,2025-2026,Nguyễn Thị Sông,Nam,Kinh,13/10/2008,Bệnh viện Cần Thơ,An Giang,Phan Thị Loan
+Lê Thị Thu,HS025032,12A2,2025-2026,Nguyễn Thị Sông,Nữ,Kinh,21/08/2008,Bệnh viện Kiên Giang,An Giang,Lê Văn Quý
+Trương Văn Bình,HS025033,12A2,2025-2026,Nguyễn Thị Sông,Nam,Kinh,19/12/2008,Bệnh viện Sài Gòn,An Giang,Trương Thị Hương
+Đinh Văn Long,HS025034,12A2,2025-2026,Nguyễn Thị Sông,Nam,Kinh,04/07/2008,Bệnh viện Hùng Vương,An Giang,Đinh Thị Thu
+Bùi Thị Hương,HS025035,12A2,2025-2026,Nguyễn Thị Sông,Nữ,Kinh,26/03/2008,Bệnh viện Quân Y,An Giang,Bùi Văn Phúc
+Đoàn Văn Sang,HS025036,12A2,2025-2026,Nguyễn Thị Sông,Nam,Kinh,30/09/2008,Bệnh viện An Giang,An Giang,Đoàn Thị Mai
+Trần Thị Nga,HS025037,12A2,2025-2026,Nguyễn Thị Sông,Nữ,Kinh,08/02/2008,Bệnh viện Cần Thơ,An Giang,Trần Văn Phú
+Lý Văn Toản,HS025038,12A2,2025-2026,Nguyễn Thị Sông,Nam,Kinh,07/06/2008,Bệnh viện Kiên Giang,An Giang,Lý Thị Lệ
+Tô Thị Hường,HS025039,12A2,2025-2026,Nguyễn Thị Sông,Nữ,Kinh,24/10/2008,Bệnh viện Hùng Vương,An Giang,Tô Văn Tâm
+Châu Văn Lâm,HS025040,12A2,2025-2026,Nguyễn Thị Sông,Nam,Kinh,12/05/2008,Bệnh viện Từ Dũ,An Giang,Châu Thị Tuyết
+Phạm Văn Hậu,HS025041,12A3,2025-2026,Cao Bá Quát,Nam,Kinh,05/01/2008,Bệnh viện Đa khoa Long Xuyên,An Giang,Phạm Thị Hoa
+Trần Thị Thu,HS025042,12A3,2025-2026,Cao Bá Quát,Nữ,Kinh,16/02/2008,Bệnh viện Hạnh Phúc,An Giang,Trần Văn Tùng
+Nguyễn Văn Sơn,HS025043,12A3,2025-2026,Cao Bá Quát,Nam,Kinh,30/04/2008,Bệnh viện Cần Thơ,An Giang,Nguyễn Thị Mỹ
+Lê Thị Huyền,HS025044,12A3,2025-2026,Cao Bá Quát,Nữ,Kinh,21/03/2008,Bệnh viện Từ Dũ,An Giang,Lê Văn Thắng
+Đỗ Văn Phong,HS025045,12A3,2025-2026,Cao Bá Quát,Nam,Kinh,12/06/2008,Bệnh viện Phụ sản Cần Thơ,An Giang,Đỗ Thị Yến
+Nguyễn Thị Bích,HS025046,12A3,2025-2026,Cao Bá Quát,Nữ,Kinh,27/08/2008,Bệnh viện Hùng Vương,An Giang,Nguyễn Văn Hải
+Vũ Văn Hùng,HS025047,12A3,2025-2026,Cao Bá Quát,Nam,Kinh,18/09/2008,Bệnh viện Kiên Giang,An Giang,Vũ Thị Mai
+Trịnh Thị Diễm,HS025048,12A3,2025-2026,Cao Bá Quát,Nữ,Kinh,03/10/2008,Bệnh viện An Giang,An Giang,Trịnh Văn Tân
+Ngô Văn Huy,HS025049,12A3,2025-2026,Cao Bá Quát,Nam,Kinh,25/07/2008,Bệnh viện Quân Y,An Giang,Ngô Thị Bích
+Bùi Thị Hạnh,HS025050,12A3,2025-2026,Cao Bá Quát,Nữ,Kinh,14/12/2008,Bệnh viện Sài Gòn,An Giang,Bùi Văn Quang
+Đinh Văn Kiên,HS025051,12A3,2025-2026,Cao Bá Quát,Nam,Kinh,06/11/2008,Bệnh viện Hạnh Phúc,An Giang,Đinh Thị Xuân
+Tạ Thị Nhàn,HS025052,12A3,2025-2026,Cao Bá Quát,Nữ,Kinh,11/01/2008,Bệnh viện Đa khoa Kiên Giang,An Giang,Tạ Văn Lộc
+Cao Văn Minh,HS025053,12A3,2025-2026,Cao Bá Quát,Nam,Kinh,09/05/2008,Bệnh viện Trung Ương,An Giang,Cao Thị Tuyết
+Hoàng Thị Thảo,HS025054,12A3,2025-2026,Cao Bá Quát,Nữ,Kinh,22/06/2008,Bệnh viện Cần Thơ,An Giang,Hoàng Văn Hiếu
+Dương Văn Lực,HS025055,12A3,2025-2026,Cao Bá Quát,Nam,Kinh,15/08/2008,Bệnh viện Đa khoa Long Xuyên,An Giang,Dương Thị Kim
+Phan Thị Mỹ,HS025056,12A3,2025-2026,Cao Bá Quát,Nữ,Kinh,04/09/2008,Bệnh viện Hùng Vương,An Giang,Phan Văn Hòa
+Hồ Văn Đạt,HS025057,12A3,2025-2026,Cao Bá Quát,Nam,Kinh,20/02/2008,Bệnh viện Từ Dũ,An Giang,Hồ Thị Ngọc
+Mai Thị Yến,HS025058,12A3,2025-2026,Cao Bá Quát,Nữ,Kinh,31/03/2008,Bệnh viện Cần Thơ,An Giang,Mai Văn Sơn
+Lương Văn Thắng,HS025059,12A3,2025-2026,Cao Bá Quát,Nam,Kinh,28/07/2008,Bệnh viện Quân Y,An Giang,Lương Thị Hoa
+Đào Thị Ngọc,HS025060,12A3,2025-2026,Cao Bá Quát,Nữ,Kinh,19/10/2008,Bệnh viện An Giang,An Giang,Đào Văn Hùng
+Trần Văn Lâm,HS025061,12A4,2025-2026,Liễu Như Yên,Nam,Kinh,10/01/2008,Bệnh viện Hạnh Phúc,An Giang,Trần Thị Lan
+Lê Thị Tuyết,HS025062,12A4,2025-2026,Liễu Như Yên,Nữ,Kinh,22/02/2008,Bệnh viện Từ Dũ,An Giang,Lê Văn Dũng
+Nguyễn Văn Bảo,HS025063,12A4,2025-2026,Liễu Như Yên,Nam,Kinh,14/03/2008,Bệnh viện Kiên Giang,An Giang,Nguyễn Thị Cẩm
+Phạm Thị Hà,HS025064,12A4,2025-2026,Liễu Như Yên,Nữ,Kinh,08/04/2008,Bệnh viện Hùng Vương,An Giang,Phạm Văn Tân
+Hoàng Văn Duy,HS025065,12A4,2025-2026,Liễu Như Yên,Nam,Kinh,27/05/2008,Bệnh viện Đa khoa Long Xuyên,An Giang,Hoàng Thị Nga
+Trịnh Thị Mai,HS025066,12A4,2025-2026,Liễu Như Yên,Nữ,Kinh,30/06/2008,Bệnh viện Trung Ương,An Giang,Trịnh Văn Thái
+Vũ Văn Tín,HS025067,12A4,2025-2026,Liễu Như Yên,Nam,Kinh,19/07/2008,Bệnh viện An Giang,An Giang,Vũ Thị Phượng
+Đặng Thị Hằng,HS025068,12A4,2025-2026,Liễu Như Yên,Nữ,Kinh,12/08/2008,Bệnh viện Sài Gòn,An Giang,Đặng Văn Minh
+Lý Văn Khoa,HS025069,12A4,2025-2026,Liễu Như Yên,Nam,Kinh,05/09/2008,Bệnh viện Quân Y,An Giang,Lý Thị Thu
+Đoàn Thị Kim,HS025070,12A4,2025-2026,Liễu Như Yên,Nữ,Kinh,16/10/2008,Bệnh viện Cần Thơ,An Giang,Đoàn Văn Tuấn
+Ngô Văn Toàn,HS025071,12A4,2025-2026,Liễu Như Yên,Nam,Kinh,25/11/2008,Bệnh viện Hạnh Phúc,An Giang,Ngô Thị Ngọc
+Bùi Thị Thư,HS025072,12A4,2025-2026,Liễu Như Yên,Nữ,Kinh,09/12/2008,Bệnh viện Đa khoa Kiên Giang,An Giang,Bùi Văn Hoàng
+Tạ Văn Quý,HS025073,12A4,2025-2026,Liễu Như Yên,Nam,Kinh,04/01/2008,Bệnh viện Hùng Vương,An Giang,Tạ Thị Nguyệt
+Đinh Thị Ngọc,HS025074,12A4,2025-2026,Liễu Như Yên,Nữ,Kinh,18/02/2008,Bệnh viện Từ Dũ,An Giang,Đinh Văn Tuấn
+Mai Văn Hiếu,HS025075,12A4,2025-2026,Liễu Như Yên,Nam,Kinh,03/03/2008,Bệnh viện An Giang,An Giang,Mai Thị Thảo
+Hồ Thị Trúc,HS025076,12A4,2025-2026,Liễu Như Yên,Nữ,Kinh,22/04/2008,Bệnh viện Đa khoa Long Xuyên,An Giang,Hồ Văn Lâm
+Lương Văn Đức,HS025077,12A4,2025-2026,Liễu Như Yên,Nam,Kinh,14/05/2008,Bệnh viện Quân Y,An Giang,Lương Thị Thu
+Đào Thị Vân,HS025078,12A4,2025-2026,Liễu Như Yên,Nữ,Kinh,06/06/2008,Bệnh viện Trung Ương,An Giang,Đào Văn Bình
+Phan Văn Quân,HS025079,12A4,2025-2026,Liễu Như Yên,Nam,Kinh,11/07/2008,Bệnh viện Cần Thơ,An Giang,Phan Thị Mỹ
+Dương Thị Lan,HS025080,12A4,2025-2026,Liễu Như Yên,Nữ,Kinh,29/08/2008,Bệnh viện Kiên Giang,An Giang,Dương Văn Sơn
+Nguyễn Văn Minh,HS025081,12A5,2025-2026,Trần Trung Thực,Nam,Kinh,02/01/2008,Bệnh viện Đa khoa Kiên Giang,An Giang,Nguyễn Thị Liên
+Trần Thị Thanh,HS025082,12A5,2025-2026,Trần Trung Thực,Nữ,Kinh,15/02/2008,Bệnh viện Từ Dũ,An Giang,Trần Văn Sơn
+Lê Văn Đạt,HS025083,12A5,2025-2026,Trần Trung Thực,Nam,Kinh,20/03/2008,Bệnh viện Hạnh Phúc,An Giang,Lê Thị Kim
+Võ Thị Hà,HS025084,12A5,2025-2026,Trần Trung Thực,Nữ,Kinh,11/04/2008,Bệnh viện Hùng Vương,An Giang,Võ Văn Bằng
+Hoàng Văn Phú,HS025085,12A5,2025-2026,Trần Trung Thực,Nam,Kinh,06/05/2008,Bệnh viện An Giang,An Giang,Hoàng Thị Lệ
+Đinh Thị Hương,HS025086,12A5,2025-2026,Trần Trung Thực,Nữ,Kinh,28/06/2008,Bệnh viện Trung Ương,An Giang,Đinh Văn Thắng
+Phạm Văn Tuấn,HS025087,12A5,2025-2026,Trần Trung Thực,Nam,Kinh,17/07/2008,Bệnh viện Cần Thơ,An Giang,Phạm Thị Lài
+Bùi Thị Hằng,HS025088,12A5,2025-2026,Trần Trung Thực,Nữ,Kinh,25/08/2008,Bệnh viện Quân Y,An Giang,Bùi Văn Hạnh
+Đoàn Văn Hậu,HS025089,12A5,2025-2026,Trần Trung Thực,Nam,Kinh,09/09/2008,Bệnh viện Hạnh Phúc,An Giang,Đoàn Thị Tuyết
+Lý Thị Nhung,HS025090,12A5,2025-2026,Trần Trung Thực,Nữ,Kinh,03/10/2008,Bệnh viện Từ Dũ,An Giang,Lý Văn Thái
+Ngô Văn Dũng,HS025091,12A5,2025-2026,Trần Trung Thực,Nam,Kinh,13/11/2008,Bệnh viện Đa khoa Long Xuyên,An Giang,Ngô Thị Tuyền
+Hồ Thị Mai,HS025092,12A5,2025-2026,Trần Trung Thực,Nữ,Kinh,30/12/2008,Bệnh viện An Giang,An Giang,Hồ Văn Giang
+Mai Văn Tiến,HS025093,12A5,2025-2026,Trần Trung Thực,Nam,Kinh,10/01/2008,Bệnh viện Hùng Vương,An Giang,Mai Thị Loan
+Tạ Thị Lan,HS025094,12A5,2025-2026,Trần Trung Thực,Nữ,Kinh,21/02/2008,Bệnh viện Kiên Giang,An Giang,Tạ Văn Phước
+Lương Văn Hoàng,HS025095,12A5,2025-2026,Trần Trung Thực,Nam,Kinh,05/03/2008,Bệnh viện Quân Y,An Giang,Lương Thị Hồng
+Đào Thị Bích,HS025096,12A5,2025-2026,Trần Trung Thực,Nữ,Kinh,26/04/2008,Bệnh viện Trung Ương,An Giang,Đào Văn Tịnh
+Phan Văn Toàn,HS025097,12A5,2025-2026,Trần Trung Thực,Nam,Kinh,19/05/2008,Bệnh viện Cần Thơ,An Giang,Phan Thị Hảo
+Dương Thị Ngọc,HS025098,12A5,2025-2026,Trần Trung Thực,Nữ,Kinh,08/06/2008,Bệnh viện Hạnh Phúc,An Giang,Dương Văn Hải
+Trịnh Văn Đức,HS025099,12A5,2025-2026,Trần Trung Thực,Nam,Kinh,01/07/2008,Bệnh viện Đa khoa Kiên Giang,An Giang,Trịnh Thị Hoa
+Vũ Thị Minh,HS025100,12A5,2025-2026,Trần Trung Thực,Nữ,Kinh,12/08/2008,Bệnh viện Từ Dũ,An Giang,Vũ Văn Nam
+Nguyễn Thị Phương,HS025101,12A6,2025-2026,Lê Min,Nữ,Kinh,03/01/2008,Bệnh viện An Giang,An Giang,Nguyễn Văn Lâm
+Trần Văn Hòa,HS025102,12A6,2025-2026,Lê Min,Nam,Kinh,17/02/2008,Bệnh viện Hạnh Phúc,An Giang,Trần Thị Hoa
+Lê Thị Bích,HS025103,12A6,2025-2026,Lê Min,Nữ,Kinh,21/03/2008,Bệnh viện Từ Dũ,An Giang,Lê Văn Hữu
+Võ Văn Quý,HS025104,12A6,2025-2026,Lê Min,Nam,Kinh,02/04/2008,Bệnh viện Đa khoa Kiên Giang,An Giang,Võ Thị Thu
+Hoàng Thị Hà,HS025105,12A6,2025-2026,Lê Min,Nữ,Kinh,09/05/2008,Bệnh viện Hùng Vương,An Giang,Hoàng Văn Phát
+Đặng Văn Long,HS025106,12A6,2025-2026,Lê Min,Nam,Kinh,14/06/2008,Bệnh viện Trung Ương,An Giang,Đặng Thị Bông
+Phạm Thị Yến,HS025107,12A6,2025-2026,Lê Min,Nữ,Kinh,25/07/2008,Bệnh viện An Giang,An Giang,Phạm Văn Biên
+Bùi Văn Tùng,HS025108,12A6,2025-2026,Lê Min,Nam,Kinh,06/08/2008,Bệnh viện Quân Y,An Giang,Bùi Thị Tâm
+Nguyễn Thị Lan,HS025109,12A6,2025-2026,Lê Min,Nữ,Kinh,28/09/2008,Bệnh viện Từ Dũ,An Giang,Nguyễn Văn Đạo
+Đoàn Văn Cường,HS025110,12A6,2025-2026,Lê Min,Nam,Kinh,10/10/2008,Bệnh viện Hạnh Phúc,An Giang,Đoàn Thị Huyền
+Trần Thị Tuyết,HS025111,12A6,2025-2026,Lê Min,Nữ,Kinh,03/11/2008,Bệnh viện Cần Thơ,An Giang,Trần Văn Đức
+Lý Văn Bình,HS025112,12A6,2025-2026,Lê Min,Nam,Kinh,12/12/2008,Bệnh viện Đa khoa Long Xuyên,An Giang,Lý Thị Kim
+Ngô Thị Trúc,HS025113,12A6,2025-2026,Lê Min,Nữ,Kinh,20/01/2008,Bệnh viện Trung Ương,An Giang,Ngô Văn Lộc
+Hồ Văn Đăng,HS025114,12A6,2025-2026,Lê Min,Nam,Kinh,05/02/2008,Bệnh viện An Giang,An Giang,Hồ Thị Tâm
+Mai Thị Hạnh,HS025115,12A6,2025-2026,Lê Min,Nữ,Kinh,19/03/2008,Bệnh viện Quân Y,An Giang,Mai Văn Thịnh
+Tạ Văn Khải,HS025116,12A6,2025-2026,Lê Min,Nam,Kinh,27/04/2008,Bệnh viện Hùng Vương,An Giang,Tạ Thị Như
+Lương Thị Hoa,HS025117,12A6,2025-2026,Lê Min,Nữ,Kinh,16/05/2008,Bệnh viện Kiên Giang,An Giang,Lương Văn Hoàn
+Đào Văn Tú,HS025118,12A6,2025-2026,Lê Min,Nam,Kinh,08/06/2008,Bệnh viện Từ Dũ,An Giang,Đào Thị Mai
+Phan Thị Thanh,HS025119,12A6,2025-2026,Lê Min,Nữ,Kinh,11/07/2008,Bệnh viện Trung Ương,An Giang,Phan Văn Đô
+Vũ Văn Giáp,HS025120,12A6,2025-2026,Lê Min,Nam,Kinh,03/08/2008,Bệnh viện Hạnh Phúc,An Giang,Vũ Thị Mai
+
