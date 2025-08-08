@@ -30,15 +30,26 @@ public class ReportCardFrame extends JFrame {
 
         // --- Thông tin học sinh ---
         JPanel infoPanel = new JPanel();
-        infoPanel.setLayout(new GridLayout(0, 1, 5, 5));
+        infoPanel.setLayout(new GridLayout(0, 2, 10, 5));
         infoPanel.setBorder(BorderFactory.createTitledBorder("🧑 Thông tin học sinh"));
-        infoPanel.add(new JLabel("Họ tên: " + student.getName()));
-        infoPanel.add(new JLabel("Mã số học sinh: " + student.getId()));
-        infoPanel.add(new JLabel("Lớp: " + student.getClassId()));
-        infoPanel.add(new JLabel("Năm học: " + student.getSchoolYear()));
-        infoPanel.add(new JLabel("Giới tính: " + student.getGender()));
-        infoPanel.add(new JLabel("GVCN: " + student.getHomeroomTeacher()));
 
+infoPanel.add(new JLabel("Họ tên: " + student.getName()));
+infoPanel.add(new JLabel("Mã số HS: " + student.getId()));
+
+infoPanel.add(new JLabel("Lớp: " + student.getClassId()));
+infoPanel.add(new JLabel("Năm học: " + student.getSchoolYear()));
+
+infoPanel.add(new JLabel("Giới tính: " + student.getGender()));
+infoPanel.add(new JLabel("GVCN: " + student.getHomeroomTeacher()));
+
+infoPanel.add(new JLabel("Dân tộc: " + student.getNation()));
+infoPanel.add(new JLabel("Ngày sinh: " + student.getDate()));
+
+
+infoPanel.add(new JLabel("Nơi ở: " + student.getPlaceLive()));
+
+infoPanel.add(new JLabel("Phụ huynh: " + student.getParent()));
+infoPanel.add(new JLabel("<html>Nơi sinh: " + student.getPlaceBirth() + "</html>"));
         // --- Bảng điểm ---
         JPanel scorePanel = new JPanel();
         scorePanel.setLayout(new BorderLayout());
@@ -49,12 +60,12 @@ public class ReportCardFrame extends JFrame {
         String[][] data = new String[SUBJECTS.length][2];
 
         Map<String, Score> scoreMap = scores.stream()
-            .collect(Collectors.toMap(Score::getSubject, s -> s));
+                .collect(Collectors.toMap(Score::getSubject, s -> s));
 
         for (int i = 0; i < SUBJECTS.length; i++) {
             data[i][0] = SUBJECTS[i];
-            data[i][1] = scoreMap.containsKey(SUBJECTS[i]) ?
-                    String.valueOf(scoreMap.get(SUBJECTS[i]).getScore()) : "Chưa nhập điểm";
+            data[i][1] = scoreMap.containsKey(SUBJECTS[i])
+                    ? String.valueOf(scoreMap.get(SUBJECTS[i]).getScore()) : "Chưa nhập điểm";
         }
 
         JTable table = new JTable(data, columnNames);

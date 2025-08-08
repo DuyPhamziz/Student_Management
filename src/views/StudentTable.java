@@ -6,7 +6,7 @@ import java.util.List;
 
 public class StudentTable extends AbstractTableModel {
 
-    private final List<Student> students;
+    private List<Student> students;
 
     private final String[] columnNames = {
             "Mã HS", "Họ và tên đệm", "Tên", "Giới tính", "Lớp", "GVCN", "Năm học",
@@ -56,5 +56,8 @@ public class StudentTable extends AbstractTableModel {
             default -> null;
         };
     }
-
+    public void setStudents(List<Student> students) {
+    this.students = students;
+    fireTableDataChanged();
+}
 }
